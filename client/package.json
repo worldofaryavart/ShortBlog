@@ -16,11 +16,9 @@
     "lucide-react": "^0.396.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "shadcn-ui": "^0.8.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "vite": "^5.3.1"
-
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
