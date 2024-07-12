@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import ProfilePage from "./pages/ProfilePage";
+import EditProfilePage from "./pages/EditProfilePage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           {/* Protected routes */}
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element = {<ProfilePage />} />
+            <Route path="/edit-profile" element = {<EditProfilePage />} />
           </Route>
         </Routes>
       </Router>

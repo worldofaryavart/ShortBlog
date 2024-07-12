@@ -4,7 +4,7 @@ import UserGrid from "../components/UserGrid";
 import TrendingGrid from "../components/TrendingGrid";
 // import LoginPage from "./LoginPage";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -33,7 +33,7 @@ const ShortBlogDesktop: React.FC = () => {
       <div className="flex p-1 bg-gray-100">
         <TrendingGrid />
         <BlogSection />
-        <div className="w-[calc(100vh-230px)] p-6 bg-white h-[calc(100vh-100px)]">
+        <div className="w-[calc(100vh-230px)] p-6 bg-white h-[calc(100vh-10px)]">
           <h2 className="text-xl font-bold mb-4">ShortBlog</h2>
           {authState.isAuthenticated && authState.user ? (
             <UserGrid />
@@ -49,7 +49,7 @@ const ShortBlogDesktop: React.FC = () => {
           )}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

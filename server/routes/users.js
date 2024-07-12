@@ -20,23 +20,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Upload profile image
-router.post('/update-profile-image', auth, upload.single('profileImage'), async (req, res) =>{
-  try{
-    if (!req.file) {
-      return res.status(400).json({ msg: "Please upload a file" });
-    }
 
-    const user = await user.findbyId(req.user.id);
-    user.profileImage = req.file.filename;
-    await user.save();
-
-    res.json({msg: 'Profile image updated successfully', profileImage: user.profileImage });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
-  }
-})
 
 // Register
 router.post("/register", async (req, res) => {
@@ -120,5 +104,40 @@ router.get("/profile", auth, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+// Update user profile
+router.put('/profile', auth, upload.single('profileImage'), async (req, res) => {
+  const { username, bio } = req.body;
+
+  try {
+    let user = await User.findById(req.user.id);
+
+    if (username) user.username = username;
+    // if (email) user.email = email;
+    if (bio) user.bio = bio;
+    if (req.file) {
+      user.profileImage = req.file.filename;
+    }
+
+    await user.save();
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// router.get('/recent-posts', auth, async (req, ,res) => {
+//   try { 
+//     const posts = await Post.find({ user: req.user.id })
+//     .sort({ date: -1 })
+//     .limit(5);
+//     res.json(posts);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// })
 
 module.exports = router;

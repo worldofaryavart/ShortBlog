@@ -1,13 +1,17 @@
 // src/context/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { AuthState} from '../types/auth';
+import { AuthState,User} from '../types/auth';
 import { api, setAuthToken } from '../services/api';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:5001/api';
 
 interface AuthContextProps {
   authState: AuthState;
   login: (email: string, password: string) => Promise<void>;
   register: (username: string, email: string, password: string) => Promise<void>;
   logout: () => void;
+  updateProfile: (userData: Partial<User>,profileImage?: File) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -72,8 +76,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setAuthState({ isAuthenticated: false, user: null, token: null });
   };
 
+  const updateProfile = async ( userData: Partial<User>, profileImage?: File) => {
+    try{
+      const formData = new FormData();
+      Object.keys(userData).forEach(key => {
+        formData.append(key, userData[key as keyof Partial<User>] as string);
+      });
+
+      if (profileImage) {
+        formData.append('profileImage', profileImage);
+      }
+
+      const res = await axios.put(`${API_URL}/users/profile`,formData,{
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'x-auth-token': authState.token
+        }
+      });
+
+      setAuthState(prev => ({
+        ...prev,
+        user: { ...prev.user, ...res.data } as User
+      }));
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ authState, login, register, logout }}>
+    <AuthContext.Provider value={{ authState, login, register, logout, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );
