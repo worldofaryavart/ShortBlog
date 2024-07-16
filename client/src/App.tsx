@@ -7,6 +7,7 @@ import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
+import BlogPage from "./pages/BlogPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element = {<ProfilePage />} />
             <Route path="/edit-profile" element = {<EditProfilePage />} />
+            <Route path="/createpost" element = {<BlogPage/>} />
           </Route>
         </Routes>
       </Router>

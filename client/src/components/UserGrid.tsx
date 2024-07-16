@@ -44,9 +44,11 @@ const UserGrid = () => {
       </div>
       <div className="mb-1 border border-b p-4 border-gray-400">
         <h3 className="font-semibold mb-2">Create ShortBlog</h3>
-        <button className="w-full px-4 py-2 border border-gray-300 rounded-md">
+        <div className="w-full  px-4 py-2 border border-gray-300 rounded-md">
+        <Link to={"/createpost"} className="w-full px-4 py-2 border border-gray-300 rounded-md">
           New Blog
-        </button>
+        </Link>
+        </div>
       </div>
       <div className="mb-1 border border-b p-4 border-gray-400">
         <h3 className="font-semibold mb-2">Liked Blogs</h3>
